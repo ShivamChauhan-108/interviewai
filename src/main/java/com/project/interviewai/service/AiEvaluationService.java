@@ -13,11 +13,6 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Service responsible for evaluating user answers using Google Gemini AI.
- * Takes the question, user's answer, and context to produce scored feedback
- * with improvement suggestions.
- */
 @Service
 @Slf4j
 public class AiEvaluationService {
@@ -36,16 +31,6 @@ public class AiEvaluationService {
         this.objectMapper = objectMapper;
     }
 
-    /**
-     * Evaluates a user's answer to an interview question.
-     * Returns detailed scoring, feedback, and an ideal answer for comparison.
-     *
-     * @param questionText the interview question that was asked
-     * @param questionType the type of question (TECHNICAL, BEHAVIORAL, etc.)
-     * @param userAnswer   the answer the user provided
-     * @param roleTarget   the job role context
-     * @return FeedbackResponse with scores and written feedback
-     */
     public FeedbackResponse evaluateAnswer(
             String questionText,
             String questionType,
@@ -57,13 +42,6 @@ public class AiEvaluationService {
         return parseEvaluationResponse(aiResponse);
     }
 
-    /**
-     * Constructs a detailed evaluation prompt that instructs Gemini to:
-     * 1. Score the answer on three axes (relevance, depth, clarity) from 0-10
-     * 2. Provide specific written feedback
-     * 3. Generate an ideal answer for comparison
-     * 4. Suggest improvement tips
-     */
     private String buildEvaluationPrompt(
             String questionText,
             String questionType,
@@ -85,19 +63,8 @@ public class AiEvaluationService {
                 Evaluate the answer on these criteria (score 0-10 for each):
                 
                 1. RELEVANCE (0-10): Does the answer directly address the question?
-                   - 0: Completely off-topic
-                   - 5: Partially relevant but misses key points
-                   - 10: Perfectly addresses every aspect of the question
-                
                 2. DEPTH (0-10): How detailed and thorough is the answer?
-                   - 0: No substance at all
-                   - 5: Surface-level understanding
-                   - 10: Deep expertise with examples, trade-offs, and edge cases
-                
                 3. CLARITY (0-10): How well-structured and clear is the communication?
-                   - 0: Incoherent or confusing
-                   - 5: Understandable but poorly organized
-                   - 10: Crystal clear, well-structured, professional communication
                 
                 Respond ONLY with valid JSON (no markdown):
                 {
@@ -111,9 +78,6 @@ public class AiEvaluationService {
                 """.formatted(roleTarget, questionType, questionText, userAnswer);
     }
 
-    /**
-     * Makes the HTTP POST call to the Gemini API.
-     */
     private String callGemini(String prompt) {
         try {
             String url = apiUrl + "?key=" + apiKey;
@@ -130,7 +94,7 @@ public class AiEvaluationService {
             JsonNode root = objectMapper.readTree(response.getBody());
             String text = root.path("candidates").get(0).path("content").path("parts").get(0).path("text").asText();
 
-            log.info("Answer evaluation completed successfully");
+            log.info("Answer evaluation completed");
             return text;
 
         } catch (Exception e) {
@@ -139,10 +103,6 @@ public class AiEvaluationService {
         }
     }
 
-    /**
-     * Parses the Gemini JSON response into a FeedbackResponse DTO.
-     * Handles markdown fences and falls back gracefully on parse failure.
-     */
     private FeedbackResponse parseEvaluationResponse(String aiResponse) {
         try {
             String cleanJson = aiResponse.replace("```json", "").replace("```", "").trim();
@@ -164,7 +124,7 @@ public class AiEvaluationService {
                     .build();
 
         } catch (Exception e) {
-            log.warn("Failed to parse evaluation JSON, returning default scores", e);
+            log.warn("Evaluation JSON parse failed, using defaults");
             return FeedbackResponse.builder()
                     .scoreRelevance(5)
                     .scoreDepth(5)
