@@ -31,20 +31,14 @@ public class SecurityConfig {
     private final UserRepository userRepository;
     private final CorsConfigurationSource corsConfigurationSource;
 
-    // ========== Security Filter Chain ==========
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // Enable CORS with our CorsConfig bean
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
-
-                // Disable CSRF (we use JWT, not sessions)
                 .csrf(AbstractHttpConfigurer::disable)
 
-                // URL authorization rules
                 .authorizeHttpRequests(auth -> auth
-                        // Public endpoints (no JWT required)
+                        // public endpoints
                         .requestMatchers(
                                 "/api/auth/**",
                                 "/api/health",
@@ -53,25 +47,19 @@ public class SecurityConfig {
                                 "/v3/api-docs/**"
                         ).permitAll()
 
-                        // All other endpoints require authentication
+                        // everything else needs a valid JWT
                         .anyRequest().authenticated()
                 )
 
-                // Stateless session (JWT-based, no server-side sessions)
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
 
-                // Set custom authentication provider
                 .authenticationProvider(authenticationProvider())
-
-                // Add JWT filter before Spring's default auth filter
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
-
-    // ========== Beans ==========
 
     @Bean
     public UserDetailsService userDetailsService() {
