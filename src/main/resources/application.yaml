@@ -43,7 +43,7 @@ logging:
 # Gemini AI Configuration
 gemini:
   api:
-    key: YOUR_GEMINI_API_KEY_HERE
+    key: GEMINI_API_KEY_HERE
     url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent
 
 # File Storage

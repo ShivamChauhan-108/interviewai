@@ -52,7 +52,7 @@ public class ResumeParserService {
         }
     }
 
-    /**
+    /*
      * Extracts human-readable text content from a PDF file using Apache PDFBox.
      * Uses try-with-resources to ensure the PDDocument is properly closed
      * even if an exception occurs during text extraction.
