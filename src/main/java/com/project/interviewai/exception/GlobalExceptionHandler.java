@@ -96,7 +96,7 @@ public class GlobalExceptionHandler {
                 "timestamp", LocalDateTime.now().toString(),
                 "status", HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "error", "Internal Server Error",
-                "message", "An unexpected error occurred"
+                "message", ex.getMessage()
         );
 
         log.error("Unexpected error: ", ex);

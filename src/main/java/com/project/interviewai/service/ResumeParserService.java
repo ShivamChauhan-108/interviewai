@@ -40,7 +40,7 @@ public class ResumeParserService {
             String originalFilename = file.getOriginalFilename();
             String uniqueFilename = UUID.randomUUID() + "_" + originalFilename;
 
-            Path filePath = uploadPath.resolve(uniqueFilename);
+            Path filePath = uploadPath.resolve(uniqueFilename).toAbsolutePath();
             file.transferTo(filePath.toFile());
 
             log.info("Resume saved to: {}", filePath);

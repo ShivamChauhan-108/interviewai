@@ -6,7 +6,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/interviewai_db
     username: postgres
-    password: 1234
+    password: your_password
     driver-class-name: org.postgresql.Driver
 
   # JPA / Hibernate Configuration
@@ -43,8 +43,8 @@ logging:
 # Gemini AI Configuration
 gemini:
   api:
-    key: GEMINI_API_KEY_HERE
-    url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent
+    key: YOUR_GEMINI_API_KEY
+    url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent
 
 # File Storage
 app:

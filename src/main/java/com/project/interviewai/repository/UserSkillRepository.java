@@ -10,6 +10,8 @@ import java.util.Optional;
 @Repository
 public interface UserSkillRepository extends JpaRepository<UserSkill, Long> {
 
+    List<UserSkill> findByUserId(Long userId);
+
     List<UserSkill> findByUserIdOrderByProficiencyDesc(Long userId);
 
     Optional<UserSkill> findByUserIdAndSkillName(Long userId, String skillName);
