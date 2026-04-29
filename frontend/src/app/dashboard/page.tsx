@@ -153,12 +153,18 @@ export default function DashboardPage() {
         </div>
 
         <div className="flex items-center gap-4">
-          <span className="text-sm text-text-secondary hidden md:inline-block">
+          <Link
+            href="/history"
+            className="text-sm font-medium text-text-secondary hover:text-accent transition-colors hidden md:inline-block"
+          >
+            Session History
+          </Link>
+          <span className="text-sm text-text-muted hidden md:inline-block border-l border-border-subtle pl-4">
             {user?.email}
           </span>
           <button
             onClick={logout}
-            className="px-4 py-2 text-sm rounded-lg border border-border hover:bg-surface-hover transition-colors"
+            className="px-4 py-2 text-sm rounded-lg border border-border hover:bg-surface-hover transition-colors ml-2"
           >
             Logout
           </button>
@@ -189,7 +195,7 @@ export default function DashboardPage() {
           />
           <StatCard
             title="Avg. Score"
-            value={stats?.averageScore ? \`\${stats.averageScore.toFixed(1)}/10\` : "N/A"}
+            value={stats?.averageScore ? `${stats.averageScore.toFixed(1)}/10` : "N/A"}
             icon="⭐️"
             isHighlight={stats && stats.averageScore > 7}
           />
@@ -258,11 +264,11 @@ export default function DashboardPage() {
               {/* Upload Status Messages */}
               {uploadStatus !== "idle" && (
                 <div
-                  className={\`mt-4 p-3 rounded-lg text-sm \${
+                  className={`mt-4 p-3 rounded-lg text-sm ${
                     uploadStatus === "success"
                       ? "bg-success-subtle text-success border border-success/20"
                       : "bg-error-subtle text-error border border-error/20"
-                  }\`}
+                  }`}
                 >
                   {uploadMessage}
                 </div>
@@ -372,7 +378,7 @@ export default function DashboardPage() {
 // Helper component for stats
 function StatCard({ title, value, icon, isHighlight = false }: { title: string; value: string; icon: string; isHighlight?: boolean }) {
   return (
-    <div className={\`p-6 rounded-2xl border bg-surface transition-all duration-300 \${isHighlight ? 'border-accent/30 shadow-glow' : 'border-border-subtle'}\`}>
+    <div className={`p-6 rounded-2xl border bg-surface transition-all duration-300 ${isHighlight ? 'border-accent/30 shadow-glow' : 'border-border-subtle'}`}>
       <div className="flex justify-between items-start">
         <h3 className="text-text-secondary font-medium text-sm">{title}</h3>
         <span className="text-xl">{icon}</span>

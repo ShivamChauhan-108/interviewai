@@ -25,7 +25,7 @@ export default function InterviewPage() {
   const handleInput = () => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = \`\${textareaRef.current.scrollHeight}px\`;
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
   };
 
@@ -285,7 +285,7 @@ function ScorePill({ label, score, isMain = false }: { label: string; score: num
 
   if (isMain) {
     return (
-      <div className={\`flex items-center gap-2 px-4 py-2 rounded-full border \${colorClass}\`}>
+      <div className={`flex items-center gap-2 px-4 py-2 rounded-full border ${colorClass}`}>
         <span className="text-sm font-medium">{label}:</span>
         <span className="font-bold text-lg">{score.toFixed(1)}<span className="text-xs opacity-70">/10</span></span>
       </div>
@@ -293,7 +293,7 @@ function ScorePill({ label, score, isMain = false }: { label: string; score: num
   }
 
   return (
-    <div className={\`flex items-center gap-1.5 px-3 py-1.5 rounded-full border \${colorClass}\`}>
+    <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border ${colorClass}`}>
       <span className="text-xs font-medium opacity-80">{label}:</span>
       <span className="font-bold text-sm">{score}<span className="text-[10px] opacity-70">/10</span></span>
     </div>
