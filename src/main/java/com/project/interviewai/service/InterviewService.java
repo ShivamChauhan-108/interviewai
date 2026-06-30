@@ -73,6 +73,7 @@ public class InterviewService {
 
             return QuestionResponse.builder()
                     .questionId(unanswered.getId())
+                    .sessionId(session.getId())
                     .questionText(unanswered.getQuestionText())
                     .questionType(unanswered.getQuestionType())
                     .questionNumber(existingQAs.size())
@@ -259,6 +260,7 @@ public class InterviewService {
 
         return QuestionResponse.builder()
                 .questionId(qa.getId())
+                .sessionId(session.getId())
                 .questionText(qa.getQuestionText())
                 .questionType(qa.getQuestionType())
                 .questionNumber(nextQuestionNumber)

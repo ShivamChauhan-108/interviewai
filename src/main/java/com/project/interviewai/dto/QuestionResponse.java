@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 public class QuestionResponse {
 
     private Long questionId;
+    private Long sessionId;
     private String questionText;
     private String questionType;    // TECHNICAL, BEHAVIORAL, SYSTEM_DESIGN, CODING
     private Integer questionNumber; // e.g., 3 of 10

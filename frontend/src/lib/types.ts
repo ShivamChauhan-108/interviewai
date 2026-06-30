@@ -40,6 +40,7 @@ export interface InterviewStartRequest {
 
 export interface QuestionResponse {
   questionId: number;
+  sessionId: number;
   questionText: string;
   questionType: string;
   questionNumber: number;
@@ -85,9 +86,28 @@ export interface SessionSummary {
   sessionId: number;
   roleTarget: string;
   difficulty: string;
-  averageScore: number;
   totalQuestions: number;
-  createdAt: string;
+  avgScore: number;
+  status: string;
+  startedAt: string;
+  completedAt: string | null;
+  questions?: QuestionSummary[];
+  overallFeedback?: string;
+  strongAreas?: string[];
+  weakAreas?: string[];
+}
+
+export interface QuestionSummary {
+  questionId: number;
+  questionType: string;
+  questionText: string;
+  userAnswer: string;
+  aiFeedback: string;
+  idealAnswer: string;
+  scoreRelevance: number;
+  scoreDepth: number;
+  scoreClarity: number;
+  overallScore: number;
 }
 
 // ---- User state for auth context ----

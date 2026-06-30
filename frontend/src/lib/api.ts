@@ -10,7 +10,7 @@
  * This pattern avoids duplicating fetch + headers logic in every component.
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 /**
  * Core fetch wrapper that handles auth headers and error parsing.
@@ -112,6 +112,28 @@ export async function submitAnswer(questionId: number, answer: string) {
   return res.json();
 }
 
+export async function getNextQuestion(sessionId: number) {
+  const res = await apiFetch(`/api/interview/${sessionId}/question`);
+  return res.json();
+}
+
+export async function endInterview(sessionId: number) {
+  const res = await apiFetch(`/api/interview/${sessionId}/end`, {
+    method: "POST",
+  });
+  return res.json();
+}
+
+export async function getInterviewHistory() {
+  const res = await apiFetch("/api/interview/history");
+  return res.json();
+}
+
+export async function getSessionDetail(sessionId: number) {
+  const res = await apiFetch(`/api/interview/session/${sessionId}`);
+  return res.json();
+}
+
 // ===================== Dashboard & Profile =====================
 
 export async function getDashboardStats() {
@@ -120,7 +142,7 @@ export async function getDashboardStats() {
 }
 
 export async function getUserProfile() {
-  const res = await apiFetch("/api/profile");
+  const res = await apiFetch("/api/user/profile");
   return res.json();
 }
 
