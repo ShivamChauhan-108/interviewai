@@ -34,3 +34,14 @@ build/
 
 ### Uploads ###
 uploads/
+
+### AI Tool Configs ###
+AGENTS.md
+CLAUDE.md
+COPILOT.md
+GEMINI.md
+.cursorrules
+.cursorignore
+
+### Personal Files ###
+resume.tex
