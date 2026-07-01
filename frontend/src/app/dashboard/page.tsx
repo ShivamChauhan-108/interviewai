@@ -198,7 +198,7 @@ export default function DashboardPage() {
             title="Avg. Score"
             value={stats?.averageScore ? `${stats.averageScore.toFixed(1)}/10` : "N/A"}
             icon="⭐️"
-            isHighlight={stats && stats.averageScore > 7}
+            isHighlight={!!(stats && stats.averageScore > 7)}
           />
         </div>
 
